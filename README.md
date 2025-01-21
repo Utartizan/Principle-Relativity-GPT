@@ -1,23 +1,12 @@
-``` python
-pip install wget
-```
 
-``` python
-import wget
-```
-
-``` python
-import wget
-
-"""
-Importing (and hence utilising) the wget function to pull data from a file.
+First we import (and hence utilise) the 'wget' function to pull data from a file.
 Which in this case will be the dataset that this Generative Pre-Training Transformer
 will rely on.
 
-This is the 'The Origin and Development of the Quantum Theory' by Max Planck, obtained
-via the Project Gutenberg website.
-"""
+This is pulls data from the 'The Principle of Relativity' book by Albert Einstein, obtained via the Project Gutenberg website.
 
+``` python
+import wget
 # Download a file
 url = "https://raw.githubusercontent.com/Utartizan/Quantum-Theory-GPT/refs/heads/main/pg66944.txt"
 filename = wget.download(url)
@@ -30,22 +19,18 @@ with open('pg66944.txt', 'r', encoding = 'utf-8') as f:
     text = f.read()
 ```
 
-``` python
-print("length of dataset in characters is: ", len(text))
 
-"""
-Outputs the amount of characters within the attached dataset. 
+The following cell the amount of characters within the attached dataset. 
 In this case, usually the longer the length of the dataset the
 better (regarding accuracy) the generative material is.
 
 This is due to the quantity in training and validation data that the
 model can use.
-"""
+``` python
+print("length of dataset in characters is: ", len(text))
 ```
 
 _length of dataset in characters is:  391617_
-
-_'Outputs the amount of characters within the attached dataset. In this case, usually the longer the length of the dataset the better (regarding accuracy) the generative material is. This is due to the quantity in training and validation data that the model can use.'_
 
 ``` python
 print(text[:1000])
