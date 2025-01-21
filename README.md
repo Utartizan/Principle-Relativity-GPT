@@ -73,9 +73,8 @@ print(vocabularySize)
     176
 
 
-``` python
-"""
-Implementing encoding and decoding functions for a character-level tokeniser
+
+Then we implement encoding and decoding functions for this character-level tokeniser.
 
 This essentially assigns each character to its assigned number, for every character
 in the list is its own number.
@@ -87,14 +86,19 @@ the value 1 belongs to the space character(?)
 The print functions below exercises the model's ability to both encode and decode
 a set of charaters, in the form of many words, in the form of a singular sentence 
 accordingly.
-"""
 
+``` python
 stoi = { ch:i for i,ch in enumerate(characters) }
 itos = { i:ch for i,ch in enumerate(characters) }
 encode = lambda s: [stoi[c] for c in s]
 decode = lambda l: ''.join([itos[i] for i in l])
 
+print(encode("abcdefg"))
+print("-------")
+print(encode("1234567"))
+print("-------")
 print(encode("A more careful even though a rapid review of the subject will, however, show how the Theory of Relativity gradually became a historical necessity."))
+print("-------")
 print(decode(encode("A more careful even though a rapid review of the subject will, however, show how the Theory of Relativity gradually became a historical necessity.")))
 ```
 
