@@ -73,9 +73,8 @@ print(vocabularySize)
     176
 
 
-``` python
-"""
-Implementing encoding and decoding functions for a character-level tokeniser
+
+Then we implement encoding and decoding functions for this character-level tokeniser.
 
 This essentially assigns each character to its assigned number, for every character
 in the list is its own number.
@@ -87,14 +86,19 @@ the value 1 belongs to the space character(?)
 The print functions below exercises the model's ability to both encode and decode
 a set of charaters, in the form of many words, in the form of a singular sentence 
 accordingly.
-"""
 
+``` python
 stoi = { ch:i for i,ch in enumerate(characters) }
 itos = { i:ch for i,ch in enumerate(characters) }
 encode = lambda s: [stoi[c] for c in s]
 decode = lambda l: ''.join([itos[i] for i in l])
 
+print(encode("abcdefg"))
+print("-------")
+print(encode("1234567"))
+print("-------")
 print(encode("A more careful even though a rapid review of the subject will, however, show how the Theory of Relativity gradually became a historical necessity."))
+print("-------")
 print(decode(encode("A more careful even though a rapid review of the subject will, however, show how the Theory of Relativity gradually became a historical necessity.")))
 ```
 
@@ -103,11 +107,6 @@ print(decode(encode("A more careful even though a rapid review of the subject wi
 
 #### The 'print(decode(encode(...' line outputs..    
     A more careful even though a rapid review of the subject will, however, show how the Theory of Relativity gradually became a historical necessity.
-
-
-``` python
-pip install torch
-```
 
 
 ``` python
@@ -193,8 +192,7 @@ print(data[:1000]) # the 1000 characters we looked at earier will to the GPT loo
              72,  69,  61,  74,  80,   2,  79,  81,  63,  63,  65,  79,  79,  65,
              79,   2,  75,  66,   2,  80,  68,  65,   2,  83,  61,  82,  65,   1,
              80,  68,  65,  75,  78,  85])
-:::
-:::
+
 
 ``` python
 # Let's now split up the data into train and validation sets
@@ -212,7 +210,6 @@ trainingData[:block_size+1]
 
     tensor([175,  41,  75,  78,  64,   2,  40,  65,  72])
 
-:::
 
 ``` python
 x = trainingData[:block_size]
@@ -223,7 +220,7 @@ for t in range(block_size):
     print(f"when input is {context} the target: {target}")
 ```
 
-::: {.output .stream .stdout}
+#### This outputs:
     when input is tensor([175]) the target: 41
     when input is tensor([175,  41]) the target: 75
     when input is tensor([175,  41,  75]) the target: 78
@@ -232,7 +229,6 @@ for t in range(block_size):
     when input is tensor([175,  41,  75,  78,  64,   2]) the target: 40
     when input is tensor([175,  41,  75,  78,  64,   2,  40]) the target: 65
     when input is tensor([175,  41,  75,  78,  64,   2,  40,  65]) the target: 72
-:::
 
 ``` python
 """
