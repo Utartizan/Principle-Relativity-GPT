@@ -110,11 +110,6 @@ print(decode(encode("A more careful even though a rapid review of the subject wi
 
 
 ``` python
-pip install torch
-```
-
-
-``` python
 # let's now encode the entire text dataset and store it into a torch.Tensor
 import torch # we use PyTorch: https://pytorch.org
 data = torch.tensor(encode(text), dtype=torch.long)
