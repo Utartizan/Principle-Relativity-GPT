@@ -192,8 +192,7 @@ print(data[:1000]) # the 1000 characters we looked at earier will to the GPT loo
              72,  69,  61,  74,  80,   2,  79,  81,  63,  63,  65,  79,  79,  65,
              79,   2,  75,  66,   2,  80,  68,  65,   2,  83,  61,  82,  65,   1,
              80,  68,  65,  75,  78,  85])
-:::
-:::
+
 
 ``` python
 # Let's now split up the data into train and validation sets
@@ -211,7 +210,6 @@ trainingData[:block_size+1]
 
     tensor([175,  41,  75,  78,  64,   2,  40,  65,  72])
 
-:::
 
 ``` python
 x = trainingData[:block_size]
@@ -222,7 +220,7 @@ for t in range(block_size):
     print(f"when input is {context} the target: {target}")
 ```
 
-::: {.output .stream .stdout}
+#### This outputs:
     when input is tensor([175]) the target: 41
     when input is tensor([175,  41]) the target: 75
     when input is tensor([175,  41,  75]) the target: 78
@@ -231,7 +229,6 @@ for t in range(block_size):
     when input is tensor([175,  41,  75,  78,  64,   2]) the target: 40
     when input is tensor([175,  41,  75,  78,  64,   2,  40]) the target: 65
     when input is tensor([175,  41,  75,  78,  64,   2,  40,  65]) the target: 72
-:::
 
 ``` python
 """
