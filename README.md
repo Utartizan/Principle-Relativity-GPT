@@ -45,7 +45,7 @@ model can use.
 
 _length of dataset in characters is:  391617_
 
-_'Outputs the amount of characters within the attached dataset. In this case, usually the longer the length of the dataset the\nbetter (regarding accuracy) the generative material is. This is due to the quantity in training and validation data that the model can use.'_
+_'Outputs the amount of characters within the attached dataset. In this case, usually the longer the length of the dataset the better (regarding accuracy) the generative material is. This is due to the quantity in training and validation data that the model can use.'_
 
 ``` python
 print(text[:1000])
