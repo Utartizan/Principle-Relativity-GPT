@@ -193,9 +193,13 @@ print(data[:1000]) # the 1000 characters we looked at earier will to the GPT loo
              79,   2,  75,  66,   2,  80,  68,  65,   2,  83,  61,  82,  65,   1,
              80,  68,  65,  75,  78,  85])
 
+#### At this point, we will utilise the entire encoded text,
+... consisting of hundreds of thousands of numbers, and split up the data 
+accordingly into training and validation. In this case, the set value is 90% for training,
+the rest of which is dedicated for validation data (to test the accuracy of the predictability
+of the model)
 
 ``` python
-# Let's now split up the data into train and validation sets
 n = int(0.9*len(data)) # first 90% will be train, rest val
 trainingData = data[:n]
 validationData = data[n:]
@@ -230,18 +234,16 @@ for t in range(block_size):
     when input is tensor([175,  41,  75,  78,  64,   2,  40]) the target: 65
     when input is tensor([175,  41,  75,  78,  64,   2,  40,  65]) the target: 72
 
-``` python
-"""
-This batch of code illustrates how sequences are batched 
-and how each prediction is made based on context.
+
+#### This batch of code illustrates how sequences are batched 
+...and how each prediction is made based on context.
 
 For each sequence in the batch, we're looking at how the model would predict
 the next character/token on what it has gone through so far.
 
 This would allow for the model to train (learn the dependencies in sequences).
-"""
 
-
+``` python
 torch.manual_seed(6969) # setting a completely random (lol funny i know) number to allow for reproducibility
 batch_size = 4 # how many independent sequences will we process in parallel?
 block_size = 8 # what is the maximum context length for predictions? how many elements used to predict the next?
@@ -252,6 +254,7 @@ def get_batch(split):
     #It chooses between trainingData or validationData based on the split parameter.
     
     ix = torch.randint(len(data) - block_size, (batch_size,))
+
     """
     Generates random starting indices for data samples.
     The subtraction of block_size ensures that there's enough data for each sequence.
@@ -340,16 +343,14 @@ import torch.nn as nn
 from torch.nn import functional as F
 torch.manual_seed(6969)
 
-
-"""
-Creating the definition for the Model (BLModel), essentially creating an embedding
+```
+Here the definition for the Model is made (BLModel), essentially creating an embedding
 layer where each token is assigned/mapped to a vector of the same identity as the
 vocabulary.
 
 This is to allow each token to represent a learnable table where each entry 
 will correspond to X logits for the corresponding token.
-"""
-
+```
 class BLModel(nn.Module):
     def __init__(self, vocabularySize):
         super().__init__()
@@ -362,28 +363,24 @@ class BLModel(nn.Module):
     
     def forward(self, idx, targets=None):
 
+```
+Logits are unnormalised predictions that would be output by this model
+for each class in a classification problem before they're transformed
+into probabiltiies.
 
-        """
-        Logits are unnormalised predictions that would be output by this model
-        for each class in a classification problem before they're transformed
-        into probabiltiies.
+They operate on an inherently unlimited scale, being any range of 
+values whether positive or negative.
 
-        They operate on an inherently unlimited scale, being any range of 
-        values whether positive or negative.
+In this example these logits will be converted into a score between 0 
+and 1 to represent the validity or probability distribution over each
+possible output.
 
-        In this example these logits will be converted into a score between 0 
-        and 1 to represent the validity or probability distribution over each
-        possible output.
-        """
+Refer to: https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html#torch.nn.CrossEntropyLoss for more information
 
-        """
+```        
         
-        -- Refer to 
-        -- https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html#torch.nn.CrossEntropyLoss
-        
-        """
-        # idx and targets are both (B,T) tensor of integers
         logits = self.token_embedding_table(idx) # (B,T,C)
+        # idx and targets are both (B,T) tensor of integers
 
         if targets is None:
             loss = None
@@ -411,7 +408,8 @@ class BLModel(nn.Module):
         return idx
 
 
-"""
+```
+
 From the following results you'll notice that the generated text will form to become
 a string of characters from the BLModel (so  far).
 
@@ -429,9 +427,9 @@ issues in data (noise, which in this case would be any extremely hard-to-underst
 from the perspective of the model (e.g. calculus formulae))
 
 We are however getting somewhere.
-"""
 
 
+```
 m = BLModel(vocabularySize)
 logits, loss = m(xb, yb)
 print(logits.shape)
